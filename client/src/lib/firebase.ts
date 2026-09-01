@@ -29,12 +29,18 @@ export async function signInWithGoogle(): Promise<User> {
 }
 
 export type ContentKind = "announcement" | "activity";
+export type GradeLevel = "All grades" | "Kindergarten" | "Grade 1" | "Grade 2" | "Grade 3" | "Grade 4" | "Grade 5" | "Grade 6";
+export type Subject = "School-wide" | "English" | "Mathematics" | "Science" | "Filipino" | "Araling Panlipunan" | "MAPEH";
+export const gradeLevels: GradeLevel[] = ["All grades", "Kindergarten", "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6"];
+export const subjects: Subject[] = ["School-wide", "English", "Mathematics", "Science", "Filipino", "Araling Panlipunan", "MAPEH"];
 
 export type SchoolPost = {
   id: string;
   kind: ContentKind;
   title: string;
   body: string;
+  gradeLevel: GradeLevel;
+  subject: Subject;
   dateLabel: string;
   dateValue: string;
   location?: string;
