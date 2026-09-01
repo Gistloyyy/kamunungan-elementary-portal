@@ -10,7 +10,7 @@ import {
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
-import { db, type ContentKind, type SchoolPost } from "@/lib/firebase";
+import { db, type ContentKind, type PostAttachment, type SchoolPost } from "@/lib/firebase";
 
 export const starterPosts: SchoolPost[] = [
   {
@@ -74,6 +74,7 @@ export function subscribeToPosts(onChange: (posts: SchoolPost[]) => void, onErro
         authorName: String(data.authorName ?? "School Office"),
         authorId: String(data.authorId ?? ""),
         createdAt: data.createdAt?.toMillis?.() ?? undefined,
+        attachments: Array.isArray(data.attachments) ? data.attachments.map((attachment: Record<string, unknown>) => ({ name: String(attachment.name || "Download file"), url: String(attachment.url || ""), type: String(attachment.type || "application/octet-stream"), size: Number(attachment.size || 0) })).filter((attachment: PostAttachment) => attachment.url) : undefined,
       } satisfies SchoolPost;
     });
     onChange(posts.length ? posts : starterPosts);

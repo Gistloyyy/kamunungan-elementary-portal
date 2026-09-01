@@ -1,7 +1,7 @@
 /* Paper Garden style: the homepage is an asymmetric editorial noticeboard with visible metadata, useful filtering, and tactile school-office details. */
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
-import { ArrowUpRight, CalendarDays, ChevronRight, Clock3, Filter, MapPin, Menu, Pin, Sparkles, X } from "lucide-react";
+import { ArrowUpRight, CalendarDays, ChevronRight, Clock3, Download, Filter, MapPin, Menu, Paperclip, Pin, Sparkles, X } from "lucide-react";
 import { BrandMark } from "@/components/BrandMark";
 import { ContactMapSection } from "@/components/ContactMapSection";
 import { subscribeToPosts, starterPosts } from "@/lib/posts";
@@ -9,7 +9,7 @@ import { gradeLevels, subjects, type GradeLevel, type SchoolPost, type Subject }
 import { sanitizePostHtml } from "@/lib/sanitize";
 
 function NoticeSlip({ post, featured = false }: { post: SchoolPost; featured?: boolean }) {
-  return <article className={`notice-slip ${featured ? "notice-slip--featured" : ""} ${post.kind === "activity" ? "notice-slip--activity" : "notice-slip--announcement"}`}><div className="notice-slip__edge" aria-hidden="true" /><div className="notice-slip__meta"><span className="eyebrow">{post.kind === "activity" ? "Activity" : "Announcement"}</span><span className="notice-slip__date">{post.dateLabel}</span></div><h3>{post.title}</h3><div className="rich-content notice-slip__body" dangerouslySetInnerHTML={{ __html: sanitizePostHtml(post.body) }} /><div className="notice-slip__tags"><span>{post.gradeLevel}</span><span>{post.subject}</span></div><div className="notice-slip__footer">{post.location ? <span><MapPin size={14} /> {post.location}</span> : <span><Pin size={14} /> {post.authorName}</span>}{featured && <ArrowUpRight size={18} aria-hidden="true" />}</div></article>;
+  return <article className={`notice-slip ${featured ? "notice-slip--featured" : ""} ${post.kind === "activity" ? "notice-slip--activity" : "notice-slip--announcement"}`}><div className="notice-slip__edge" aria-hidden="true" /><div className="notice-slip__meta"><span className="eyebrow">{post.kind === "activity" ? "Activity" : "Announcement"}</span><span className="notice-slip__date">{post.dateLabel}</span></div><h3>{post.title}</h3><div className="rich-content notice-slip__body" dangerouslySetInnerHTML={{ __html: sanitizePostHtml(post.body) }} /><div className="notice-slip__tags"><span>{post.gradeLevel}</span><span>{post.subject}</span></div>{post.attachments?.length ? <div className="notice-slip__attachments">{post.attachments.map((attachment) => <a href={attachment.url} target="_blank" rel="noreferrer" key={attachment.url}><Paperclip size={13} /> <span>{attachment.name}</span><Download size={13} /></a>)}</div> : null}<div className="notice-slip__footer">{post.location ? <span><MapPin size={14} /> {post.location}</span> : <span><Pin size={14} /> {post.authorName}</span>}{featured && <ArrowUpRight size={18} aria-hidden="true" />}</div></article>;
 }
 
 function FilterBar({ kind, grade, subject, onGrade, onSubject }: { kind: "all" | "announcement" | "activity"; grade: GradeLevel; subject: Subject | "All subjects"; onGrade: (value: GradeLevel) => void; onSubject: (value: Subject | "All subjects") => void }) {

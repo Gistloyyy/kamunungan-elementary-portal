@@ -11,3 +11,13 @@
 - [x] Confirm publish, edit, and delete actions show immediate toast feedback.
 - [x] Verify the skill package, website build, editor upload flow, and responsive UI; live Firebase upload requires an authenticated session and published Storage rules.
 - [ ] Save a new checkpoint for handoff.
+
+## Approval and attachments extension
+
+- [x] Add teacher profile records with administrator approval status and role fields.
+- [x] Restrict dashboard access and post publishing to approved teachers.
+- [x] Add administrator-only account review and approve/reject controls.
+- [x] Add secure PDF/worksheet attachment uploads to activity posts with download links.
+- [x] Update Firestore and Storage setup guidance for approval and attachment security rules.
+- [x] Verify public, access, protected, administrator, and responsive UI states; live approval and file writes require Firebase rules and an authenticated session.
+- [ ] Save a new checkpoint for handoff.

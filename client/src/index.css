@@ -483,6 +483,7 @@ h1 em, h2 em { color: var(--clay); font-style: italic; font-weight: 450; }
 .rich-content ul, .rich-content ol { margin: 7px 0 9px; padding-left: 19px; }
 .rich-content a { color: var(--clay); text-decoration: underline; text-underline-offset: 3px; }
 .rich-content strong { color: var(--ink); font-weight: 800; }
+.rich-content img, .rich-editor__surface img { display: block; max-width: 100%; height: auto; margin: 12px 0; border: 1px solid rgba(22,61,77,.12); box-shadow: 3px 3px 0 rgba(22,61,77,.08); }
 .rich-editor { overflow: hidden; border: 1px solid rgba(22,61,77,.23); background: var(--paper); }
 .rich-editor__toolbar { display: flex; align-items: center; gap: 3px; min-height: 39px; padding: 4px 7px; border-bottom: 1px solid rgba(22,61,77,.16); background: var(--cream); }
 .rich-editor__toolbar button { display: grid; place-items: center; width: 30px; height: 29px; color: var(--ink-soft); background: transparent; cursor: pointer; transition: background 160ms var(--ease-out), color 160ms var(--ease-out); }
@@ -540,6 +541,85 @@ h1 em, h2 em { color: var(--clay); font-style: italic; font-weight: 450; }
   .contact-map-stage { min-height: 285px; }
   .contact-map { height: 285px !important; }
   .contact-map__label { right: 8px; font-size: 8px; }
+}
+
+.notice-slip__attachments, .post-attachments { display: grid; gap: 7px; margin-top: 12px; }
+.notice-slip__attachments a, .post-attachments a { display: flex; align-items: center; gap: 7px; width: fit-content; max-width: 100%; padding: 7px 9px; color: var(--ink); background: rgba(255,255,255,.56); font-size: 10px; font-weight: 800; text-decoration: none; border: 1px solid rgba(22,61,77,.13); transition: transform 160ms var(--ease-out), background 160ms var(--ease-out); }
+.notice-slip__attachments a:hover, .post-attachments a:hover { background: var(--marigold-light); transform: translateX(3px); }
+.notice-slip__attachments a span, .post-attachments a span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.notice-slip__attachments a svg:last-child, .post-attachments a svg:last-child { margin-left: auto; color: var(--clay); }
+.attachment-field { display: grid; gap: 10px; padding: 13px 15px; border: 1px dashed rgba(22,61,77,.24); background: rgba(255,253,248,.58); }
+.attachment-field > div:first-child { display: grid; gap: 3px; }
+.attachment-field strong { color: var(--ink); font-family: "Fraunces", serif; font-size: 17px; }
+.attachment-field small { color: var(--ink-soft); font-size: 10px; }
+.button--paper { width: fit-content; padding: 9px 12px; color: var(--ink); border: 1px solid rgba(22,61,77,.18); background: var(--cream); font-size: 11px; }
+.button--paper:hover { background: var(--marigold-light); }
+.attachment-chips { display: flex !important; flex-wrap: wrap; gap: 6px; }
+.attachment-chip { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; padding: 6px 8px; color: var(--ink-soft); background: var(--paper); font-size: 10px; font-weight: 750; }
+.attachment-chip > svg { color: var(--clay); flex: 0 0 auto; }
+.attachment-chip button { display: grid; place-items: center; color: var(--ink-soft); background: transparent; }
+.shield-icon { color: var(--marigold); font-size: 18px; }
+.approval-page { min-height: 100vh; display: grid; place-items: center; padding: 35px; background: var(--paper); }
+.approval-card { position: relative; width: min(100%, 540px); padding: 46px 48px 42px; background: var(--cream); box-shadow: 13px 13px 0 rgba(15,52,66,.16); border: 1px solid rgba(22,61,77,.1); }
+.approval-card::before { content: ""; position: absolute; top: -10px; left: 38%; width: 90px; height: 19px; background: var(--marigold); transform: rotate(-2deg); }
+.approval-card__mark { display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 23px; color: var(--ink); background: var(--marigold-light); }
+.approval-card h1 { margin: 16px 0; color: var(--ink); font-family: "Fraunces", serif; font-size: clamp(44px, 6vw, 62px); line-height: .96; letter-spacing: -.055em; }
+.approval-card h1 em { color: var(--clay); }
+.approval-card p { max-width: 420px; color: var(--ink-soft); font-size: 15px; line-height: 1.6; }
+.approval-rejected { display: grid; gap: 5px; margin: 24px 0; padding: 13px 15px; border-left: 3px solid var(--clay); color: var(--ink-soft); background: rgba(182,95,74,.1); font-size: 12px; line-height: 1.45; }
+.approval-rejected strong { color: var(--clay); }
+.approval-card__actions { display: flex; align-items: center; gap: 17px; margin-top: 31px; }
+.admin-shell { min-height: 100vh; display: grid; grid-template-columns: 245px 1fr; background: var(--paper); }
+.admin-sidebar { display: flex; flex-direction: column; padding: 25px 22px; color: var(--cream); background: var(--ink); }
+.admin-sidebar__rule { height: 1px; margin: 25px 0 28px; background: rgba(247,242,232,.18); }
+.admin-sidebar .sidebar-label { color: rgba(247,242,232,.58); }
+.admin-sidebar__active { display: flex; align-items: center; gap: 9px; margin-top: 14px; padding: 11px 9px; color: var(--ink); background: var(--marigold); font-size: 12px; font-weight: 850; }
+.admin-sidebar__footer { display: grid; gap: 14px; margin-top: auto; color: rgba(247,242,232,.66); font-size: 10px; }
+.admin-sidebar__footer button, .admin-sidebar__footer a { display: inline-flex; align-items: center; gap: 7px; color: inherit; background: transparent; text-decoration: none; font-size: 11px; }
+.admin-main { min-width: 0; padding: 64px clamp(24px, 7vw, 100px); }
+.admin-header { display: flex; align-items: end; justify-content: space-between; gap: 25px; max-width: 940px; margin: 0 auto 45px; }
+.admin-header h1 { margin: 14px 0 8px; color: var(--ink); font-family: "Fraunces", serif; font-size: clamp(42px, 5vw, 66px); line-height: .95; letter-spacing: -.06em; }
+.admin-header p { margin: 0; color: var(--ink-soft); font-size: 14px; }
+.admin-header__count { display: grid; justify-items: center; min-width: 105px; padding: 16px; background: var(--marigold); transform: rotate(2deg); }
+.admin-header__count strong { color: var(--ink); font-family: "Fraunces", serif; font-size: 38px; line-height: .9; }
+.admin-header__count span { margin-top: 5px; color: var(--ink-soft); font-size: 9px; font-weight: 850; text-transform: uppercase; letter-spacing: .1em; }
+.admin-panel { max-width: 940px; margin: 0 auto; padding: 27px; background: var(--cream); box-shadow: 8px 8px 0 rgba(15,52,66,.11); }
+.admin-panel__heading { display: flex; align-items: end; justify-content: space-between; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.admin-panel__heading h2 { margin: 10px 0 0; color: var(--ink); font-family: "Fraunces", serif; font-size: 32px; }
+.admin-panel__hint { color: var(--ink-soft); font-size: 10px; font-weight: 800; }
+.account-list { display: grid; }
+.account-card { display: grid; grid-template-columns: 42px 1fr auto auto; align-items: center; gap: 14px; padding: 17px 0; border-bottom: 1px solid var(--line); }
+.account-card__avatar { display: grid; place-items: center; width: 39px; height: 39px; color: var(--ink); background: var(--green-light); }
+.account-card__copy { display: grid; gap: 3px; }
+.account-card__copy strong { color: var(--ink); font-size: 13px; }
+.account-card__copy span, .account-card__copy small { color: var(--ink-soft); font-size: 10px; }
+.account-status { display: inline-flex; align-items: center; gap: 5px; padding: 5px 8px; font-size: 9px; font-weight: 850; text-transform: uppercase; letter-spacing: .08em; }
+.account-status--pending { color: var(--ink); background: var(--marigold-light); }
+.account-status--approved { color: #1f644e; background: var(--green-light); }
+.account-status--rejected { color: var(--clay); background: rgba(182,95,74,.13); }
+.account-card__actions { display: flex; align-items: center; gap: 7px; }
+.button--approve { display: inline-flex; align-items: center; gap: 6px; padding: 8px 10px; color: var(--ink); background: var(--green-light); font-size: 10px; font-weight: 850; }
+.admin-loading, .admin-empty { display: grid; justify-items: center; gap: 9px; padding: 55px 20px; color: var(--ink-soft); text-align: center; }
+.admin-empty h3 { margin: 4px 0 0; color: var(--ink); font-family: "Fraunces", serif; font-size: 23px; }
+.admin-empty p { margin: 0; font-size: 12px; }
+
+@media (max-width: 700px) {
+  .approval-page { padding: 20px; }
+  .approval-card { padding: 36px 24px 29px; }
+  .approval-card__actions { align-items: flex-start; flex-direction: column; }
+  .admin-shell { display: block; }
+  .admin-sidebar { min-height: auto; gap: 17px; padding: 18px 20px; }
+  .admin-sidebar__rule { margin: 8px 0 0; }
+  .admin-sidebar__footer { margin-top: 7px; }
+  .admin-main { padding: 36px 19px 55px; }
+  .admin-header { align-items: flex-start; flex-direction: column; margin-bottom: 27px; }
+  .admin-header__count { align-self: flex-start; }
+  .admin-panel { padding: 19px 15px; }
+  .account-card { grid-template-columns: 35px 1fr auto; gap: 10px; }
+  .account-card__avatar { width: 34px; height: 34px; }
+  .account-status { grid-column: 2 / 3; justify-self: start; }
+  .account-card__actions { grid-column: 3 / 4; grid-row: 1 / span 2; flex-direction: column; }
+  .button--approve { font-size: 9px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
