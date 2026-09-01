@@ -7,6 +7,7 @@ import {
   type User,
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAWKE9-C3i978wWQpl4LsXQZp4HPGw_oVI",
@@ -21,6 +22,20 @@ const firebaseConfig = {
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const storage = getStorage(app);
+
+export async function uploadPostImage(file: File, onProgress?: (progress: number) => void): Promise<string> {
+  if (!file.type.startsWith("image/")) throw new Error("Please choose an image file.");
+  if (file.size > 5 * 1024 * 1024) throw new Error("Please choose an image smaller than 5 MB.");
+  const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
+  const imageRef = ref(storage, `post-images/${crypto.randomUUID()}.${extension}`);
+  const task = uploadBytesResumable(imageRef, file, { contentType: file.type, cacheControl: "public,max-age=31536000" });
+  return new Promise((resolve, reject) => {
+    task.on("state_changed", (snapshot) => onProgress?.(Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)), reject, async () => {
+      try { resolve(await getDownloadURL(task.snapshot.ref)); } catch (error) { reject(error); }
+    });
+  });
+}
 
 export async function signInWithGoogle(): Promise<User> {
   const provider = new GoogleAuthProvider();

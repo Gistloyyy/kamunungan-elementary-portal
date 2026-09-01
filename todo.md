@@ -6,4 +6,8 @@
 - [x] Add sanitized rich-text content support for bold text, lists, and links.
 - [x] Build and connect the teacher dashboard rich-text editor.
 - [x] Verify the homepage, access flow, filters, formatting, and contact section; dashboard is protected and requires Firebase sign-in to view.
+- [x] Create and validate the reusable Kamunungan portal skill package.
+- [x] Add Firebase Storage image uploads to the rich-text editor and insert uploaded image URLs into post HTML.
+- [x] Confirm publish, edit, and delete actions show immediate toast feedback.
+- [x] Verify the skill package, website build, editor upload flow, and responsive UI; live Firebase upload requires an authenticated session and published Storage rules.
 - [ ] Save a new checkpoint for handoff.

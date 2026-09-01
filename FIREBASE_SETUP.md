@@ -30,6 +30,27 @@ service cloud.firestore {
 }
 ```
 
+## Storage for teacher images
+
+In Firebase Console, open **Storage**, create the default bucket if needed, and publish rules that require an authenticated teacher, accept only image files, and cap uploads at 5 MB:
+
+```text
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /post-images/{imageId} {
+      allow read: if true;
+      allow write: if request.auth != null
+        && request.resource.contentType.matches('image/.*')
+        && request.resource.size < 5 * 1024 * 1024;
+    }
+  }
+}
+```
+
+The teacher editor accepts PNG, JPEG, WebP, and GIF files. Uploads display progress, are inserted into the formatted post, and are sanitized again before the post is stored and rendered.
+
 ## Notes
 
 The site displays a small editorial starter set until Firestore contains posts, which keeps the public homepage meaningful while the board is being set up. Once the first Firestore post exists, the public page and teacher dashboard use the live collection. If Firestore rules have not been published yet, the UI shows the starter notices and reports the Firebase error when a teacher tries to publish.
