@@ -1,5 +1,5 @@
 /* Paper Garden style: the mark is the small recurring ink-and-marigold field note that anchors every surface. */
-const logoUrl = "/manus-storage/kamunungan-logo_e57a77f6.png";
+const logoUrl = "/assets/kamunungan-logo.png";
 
 export function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
