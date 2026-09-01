@@ -29,3 +29,11 @@
 - [x] Add homepage keyword search across announcement and activity titles, text, metadata, and filenames.
 - [x] Verify preview fallback behavior, search empty states, status states, and responsive layouts; live file preview requires published Firebase Storage rules and an attachment.
 - [ ] Save a new checkpoint for handoff.
+
+## Calendar and full-detail extension
+
+- [x] Add a date-based calendar view for upcoming activities and announcements.
+- [x] Add full-detail views for selected announcements and activities.
+- [x] Connect notice cards, calendar dates, search, and filters to the selected detail state.
+- [x] Verify detail rendering, attachments, previews, calendar navigation, and responsive layouts; live Firestore content requires configured Firebase rules and an authenticated teacher session.
+- [ ] Save a new checkpoint for handoff.

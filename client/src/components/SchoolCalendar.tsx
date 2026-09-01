@@ -1,0 +1,23 @@
+/* Paper Garden style: the calendar is a school-office wall planner, using ink rules, date tabs, and small event marks instead of a generic app grid. */
+import { useMemo, useState } from "react";
+import { CalendarDays, ChevronLeft, ChevronRight, Clock3, MapPin, Pin } from "lucide-react";
+import type { SchoolPost } from "@/lib/firebase";
+
+function keyForDate(date: Date) { return date.toISOString().slice(0, 10); }
+function formatDate(date: Date) { return new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric" }).format(date); }
+function longDate(date: Date) { return new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric" }).format(date); }
+
+export function SchoolCalendar({ posts, onSelect }: { posts: SchoolPost[]; onSelect: (post: SchoolPost) => void }) {
+  const today = new Date(); today.setHours(12, 0, 0, 0);
+  const initialPost = posts.filter((post) => post.dateValue).sort((a, b) => a.dateValue.localeCompare(b.dateValue)).find((post) => post.dateValue >= keyForDate(today)) || posts.filter((post) => post.dateValue).sort((a, b) => b.dateValue.localeCompare(a.dateValue))[0];
+  const initialDate = initialPost?.dateValue || keyForDate(today);
+  const [month, setMonth] = useState(() => { const date = new Date(`${initialDate}T12:00:00`); return new Date(date.getFullYear(), date.getMonth(), 1, 12); });
+  const [selectedDate, setSelectedDate] = useState(initialDate);
+  const eventsByDate = useMemo(() => posts.reduce<Record<string, SchoolPost[]>>((groups, post) => { if (post.dateValue) (groups[post.dateValue] ||= []).push(post); return groups; }, {}), [posts]);
+  const firstWeekday = new Date(month.getFullYear(), month.getMonth(), 1, 12).getDay();
+  const daysInMonth = new Date(month.getFullYear(), month.getMonth() + 1, 0, 12).getDate();
+  const cells = Array.from({ length: firstWeekday + daysInMonth }, (_, index) => index < firstWeekday ? null : new Date(month.getFullYear(), month.getMonth(), index - firstWeekday + 1, 12));
+  const selected = eventsByDate[selectedDate] || [];
+  function moveMonth(amount: number) { setMonth((current) => new Date(current.getFullYear(), current.getMonth() + amount, 1, 12)); }
+  return <section className="calendar-section" id="calendar"><div className="calendar-section__intro"><div className="field-label"><span className="field-mark field-mark--green" /> Keep the dates close</div><h2>The school<br /><em>year at a glance.</em></h2><p>Browse the days ahead, then open any note for the full details families need.</p><a className="calendar-today" href="#calendar" onClick={() => { setMonth(new Date(today.getFullYear(), today.getMonth(), 1, 12)); setSelectedDate(keyForDate(today)); }}><CalendarDays size={17} /> Back to today</a></div><div className="calendar-planner"><div className="calendar-planner__header"><button type="button" className="icon-button" onClick={() => moveMonth(-1)} aria-label="Previous month"><ChevronLeft size={18} /></button><h3>{formatDate(month)}</h3><button type="button" className="icon-button" onClick={() => moveMonth(1)} aria-label="Next month"><ChevronRight size={18} /></button></div><div className="calendar-weekdays">{["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => <span key={day}>{day}</span>)}</div><div className="calendar-grid">{cells.map((date, index) => { const dateKey = date ? keyForDate(date) : `empty-${index}`; const dayEvents = date ? eventsByDate[dateKey] || [] : []; const active = dateKey === selectedDate; return date ? <button type="button" key={dateKey} className={`calendar-day ${active ? "is-selected" : ""} ${dayEvents.length ? "has-events" : ""}`} onClick={() => { setSelectedDate(dateKey); if (dayEvents[0]) onSelect(dayEvents[0]); }}><span>{date.getDate()}</span>{dayEvents.length > 0 && <i aria-label={`${dayEvents.length} school events`} />}</button> : <span className="calendar-day calendar-day--empty" key={dateKey} />; })}</div><div className="calendar-selected"><div className="calendar-selected__date"><span className="eyebrow">Selected day</span><strong>{longDate(new Date(`${selectedDate}T12:00:00`))}</strong></div>{selected.length ? <div className="calendar-events">{selected.map((post) => <button type="button" className="calendar-event" key={post.id} onClick={() => onSelect(post)}><span className={`calendar-event__kind ${post.kind === "activity" ? "is-activity" : ""}`}>{post.kind === "activity" ? <Clock3 size={13} /> : <Pin size={13} />}</span><span><strong>{post.title}</strong><small>{post.location || post.subject}</small></span><ChevronRight size={15} /></button>)}</div> : <div className="calendar-no-events"><MapPin size={16} /> No notes posted for this day yet.</div>}</div></div></section>;
+}
