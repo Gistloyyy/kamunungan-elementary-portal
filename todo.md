@@ -21,3 +21,11 @@
 - [x] Update Firestore and Storage setup guidance for approval and attachment security rules.
 - [x] Verify public, access, protected, administrator, and responsive UI states; live approval and file writes require Firebase rules and an authenticated session.
 - [ ] Save a new checkpoint for handoff.
+
+## Preview, status, and search extension
+
+- [x] Add inline previews for image and PDF attachments on public activity posts.
+- [x] Add a visible pending, approved, or rejected status indicator to the teacher dashboard.
+- [x] Add homepage keyword search across announcement and activity titles, text, metadata, and filenames.
+- [x] Verify preview fallback behavior, search empty states, status states, and responsive layouts; live file preview requires published Firebase Storage rules and an attachment.
+- [ ] Save a new checkpoint for handoff.
